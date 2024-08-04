@@ -1,5 +1,7 @@
-import { useReducer } from "react";
-import { formReducer } from "./reducers/formReducer";
+import { useReducer, useContext } from "react";
+import { formReducer } from "../reducers/formReducer";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../services/AuthProvider";
 const initialState = {
   username: "",
   email: "",
@@ -8,24 +10,32 @@ const initialState = {
 
 export default function Auth() {
   const [state, dispatch] = useReducer(formReducer, initialState);
-  function handleInputChange(e) {
+  const { signup } = useContext(AuthContext);
+  const nav = useNavigate();
+  const handleInputChange = (e) => {
     dispatch({
       type: "USER_INPUT",
       field: e.target.name,
       payload: e.target.value,
     });
-  }
-  function checkState(e, state) {
+  };
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log(state);
-  }
+    try {
+      await signup(state.email, state.password, state.username);
+      nav("/app");
+    } catch (err) {
+      console.error("Signup error", err);
+    }
+  };
   return (
     <div className="login">
       <h2>Create account</h2>
       <form
         className="login__form"
-        onSubmit={(e) => {
-          checkState(e, state);
+        onSubmit={async (e) => {
+          handleSignUp(e);
         }}
       >
         <label htmlFor="username" className="login__input-label">
@@ -46,10 +56,12 @@ export default function Auth() {
           Email
         </label>
         <input
+          required
           type="text"
           id="email"
           name="email"
           className="login__input"
+          value={state.email}
           onChange={(e) => {
             handleInputChange(e);
           }}
@@ -58,9 +70,11 @@ export default function Auth() {
           Password
         </label>
         <input
+          required
           type="password"
           id="password"
           name="password"
+          value={state.password}
           className="login__input"
           onChange={(e) => {
             handleInputChange(e);
