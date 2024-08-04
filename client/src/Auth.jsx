@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import { formReducer } from "./reducers/formReducer";
-import GoogleButton from "./GoogleLogin";
 const initialState = {
   username: "",
   email: "",
@@ -29,8 +28,6 @@ export default function Auth() {
           checkState(e, state);
         }}
       >
-        <GoogleButton />
-        <p>OR</p>
         <label htmlFor="username" className="login__input-label">
           Name:
         </label>
