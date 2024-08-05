@@ -1,6 +1,6 @@
 ## Firebase Auth Template with Node.js & React
 
-This is a template repository I use for creating a React app using Google Firebase for user authentication
+This is a template repository I use for creating a React app using Google Firebase for user authentication because setting it up from scratch is annoying. Super minimal but easy to extend and customize.
 
 ### Authentication Flow
 
@@ -30,7 +30,9 @@ This is a template repository I use for creating a React app using Google Fireba
 
 Feel free to use the repo by cloning it using
 
-`git clone git@githubcom:daria425firebase-auth-node-react.git`
+```sh
+git clone https://github.com/daria425/firebase-auth-node-react.git
+```
 
 Set the following `.env` variables in <a href="https://github.com/daria425/firebase-auth-node-react/tree/2f0718a046a73da85485d9a93f9dc60f6f0ae81a/client">/client</a> directory:
 
