@@ -19,6 +19,17 @@ class DatabaseService {
       };
     }
   }
+  async getUserData(uid) {
+    try {
+      const user = await this.usersCollection.findOne({ uid: uid });
+      if (user) return user;
+      else {
+        throw new Error(`User with uid ${uid} not found`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 module.exports = { DatabaseService };

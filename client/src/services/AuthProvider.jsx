@@ -15,12 +15,33 @@ const AuthProvider = ({ children }) => {
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setAuthenticatedUser(currentUser);
-      setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const idToken = await currentUser.getIdToken(true);
+      try {
+        const response = await apiConfig.post(
+          "auth/login",
+          {},
+          {
+            headers: {
+              "Authorization": `Bearer ${idToken}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          const user = response.data;
+          setAuthenticatedUser(user);
+        } else {
+          console.error("Error verifying user:", response);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     });
     return () => unsubscribe();
   }, []);
+
   const signup = async (email, password, username) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -56,7 +77,28 @@ const AuthProvider = ({ children }) => {
         email,
         password
       );
-      setAuthenticatedUser(userCredential.user);
+      const idToken = await userCredential.user.getIdToken();
+      try {
+        const response = await apiConfig.post(
+          "auth/login",
+          {},
+          {
+            headers: {
+              "Authorization": `Bearer ${idToken}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          const user = response.data;
+          setAuthenticatedUser(user);
+        } else {
+          console.error("Error logging in user:", response);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     } catch (err) {
       console.error("Error logging in:", err);
     }
