@@ -6,10 +6,10 @@ const { verifyToken } = require("../middleware/verifyToken");
 router.post("/signup", async (req, res) => {
   try {
     const db = req.app.locals.db;
-    const { uid, email, username } = req.body;
-    console.log("user to save:", uid, email, username);
+    const { uid, email, username, authProvider } = req.body;
+    console.log("user to save:", uid, email, username, authProvider);
     const databaseService = new DatabaseService(db);
-    await databaseService.saveUser(uid, email, username);
+    await databaseService.saveUser(uid, email, username, authProvider);
     res.status(200).send({ email, username });
   } catch (err) {
     console.error("Error saving user:", err);
