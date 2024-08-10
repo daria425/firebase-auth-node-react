@@ -3,12 +3,13 @@ class DatabaseService {
     this.usersCollection = db.collection("users");
   }
 
-  async saveUser(uid, email, username) {
+  async saveUser(uid, email, username, authProvider) {
     try {
       const userRecord = {
         uid,
         email,
         username,
+        authProvider,
       };
       await this.usersCollection.insertOne(userRecord);
     } catch (e) {

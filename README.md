@@ -1,4 +1,4 @@
-## Firebase Auth Template with Node.js & React
+kv## Firebase Auth Template with Node.js & React
 
 This is a template repository I use for creating a React app using Google Firebase for user authentication because setting it up from scratch is annoying. Super minimal but easy to extend and customize.
 
@@ -36,7 +36,8 @@ git clone https://github.com/daria425/firebase-auth-node-react.git
 
 Set the following `.env` variables in <a href="https://github.com/daria425/firebase-auth-node-react/tree/2f0718a046a73da85485d9a93f9dc60f6f0ae81a/client">/client</a> directory:
 
-```VITE_FIREBASE_API_KEY=<your-firebase-api-key>
+```
+VITE_FIREBASE_API_KEY=<your-firebase-api-key>
 VITE_FIREBASE_AUTH_DOMAIN=<your-firebase-auth-domain>
 VITE_FIREBASE_PROJECT_ID=<your-firebase-project-id>
 VITE_FIREBASE_STORAGE_BUCKET=<your-firebase-storage-bucket>
@@ -49,5 +50,6 @@ Set the following in the <a href="https://github.com/daria425/firebase-auth-node
 
 ```
 MONGO_DB_URI=<your-mongo-db-uri>
+MONGO_DB_NAME=<your-database-name>
 GOOGLE_APPLICATION_CREDENTIALS=<path-to-your/service-account/key-file.json>
 ```
