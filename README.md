@@ -1,4 +1,4 @@
-kv## Firebase Auth Template with Node.js & React
+Firebase Auth Template with Node.js & React
 
 This is a template repository I use for creating a React app using Google Firebase for user authentication because setting it up from scratch is annoying. Super minimal but easy to extend and customize.
 
